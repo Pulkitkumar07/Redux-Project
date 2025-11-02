@@ -1,5 +1,6 @@
 import axios from "../../api/axiosconfig"
 import { loaduser } from "../reducers/userSlice";
+import {removeuser} from "../reducers/userSlice";
 
 
 export const asyncurrentUser = () => async (dispatch, getState) => {
@@ -7,7 +8,7 @@ export const asyncurrentUser = () => async (dispatch, getState) => {
     const data = localStorage.getItem("user");
     if (data && data !== "undefined" && data !== "null") {
       const user = JSON.parse(data);
-      dispatch(loaduser(user));
+      dispatch(loaduser(user)); 
     } else {
       console.log("User not logged in");
     }
@@ -15,10 +16,13 @@ export const asyncurrentUser = () => async (dispatch, getState) => {
     console.log(error);
   }
 };
+
 export const asynclogoutUser = (user) => async (dispatch, getState) => {
+
     try {
 
         localStorage.removeItem("user");
+        dispatch(removeuser())
         console.log("User Logged Out");
         
     }
@@ -28,19 +32,22 @@ export const asynclogoutUser = (user) => async (dispatch, getState) => {
     }
 }
 export const asyncloginUser = (user) => async (dispatch, getState) => {
-    try {
-        const { data } = await axios.get(
-            `http://localhost:3000/users?username=${user.username}&email=${user.email}`
-        );
-        console.log("Response Data:", data[0]);
-        localStorage.setItem("user", JSON.stringify(data[0]))
-
+  try {
+    const { data } = await axios.get(
+      `http://localhost:3000/users?username=${user.username}&email=${user.email}`
+    );
+    if (data.length > 0) {
+      console.log(" User Found:", data[0]);
+      localStorage.setItem("user", JSON.stringify(data[0]));
+      dispatch(loaduser(data[0]));
+    } else {
+      console.log(" Invalid credentials — user not found");
     }
-    catch (error) {
-        console.log(error);
+  } catch (error) {
+    console.log("Login Error:", error);
+  }
+};
 
-    }
-}
 export const asyncRegisterUser = (user) => async (dispatch, getState) => {
     try {
         const res = await axios.post('/users', user);

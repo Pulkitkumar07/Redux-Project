@@ -8,7 +8,7 @@ const Login = () => {
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
   const loginHandler = (user) => {
-    
+     user.isAdmin=true;
     dispatch(asyncloginUser(user))
     reset();
   }
