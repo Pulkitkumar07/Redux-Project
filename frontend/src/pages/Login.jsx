@@ -1,16 +1,20 @@
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link ,Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux"
 import {asyncloginUser } from "../store/actions/userAction"
-
+import { nanoid } from "@reduxjs/toolkit";
 
 const Login = () => {
   const { register, handleSubmit, reset } = useForm();
+   const navigate=useNavigate();
   const dispatch = useDispatch();
   const loginHandler = (user) => {
      user.isAdmin=true;
+      user.id = nanoid();
+     console.log(user);
     dispatch(asyncloginUser(user))
     reset();
+    navigate("/")
   }
   return (
     <form onSubmit={handleSubmit(loginHandler)}

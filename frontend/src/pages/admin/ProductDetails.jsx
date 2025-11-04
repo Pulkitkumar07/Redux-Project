@@ -12,6 +12,7 @@ const ProductDetails = () => {
  const { products } = useSelector((state) => state.productReducer);
  const { users } = useSelector((state) => state.userReducer);
 
+ 
   const product = products?.find(product => product.id == id)
 
   const { register, handleSubmit, reset } = useForm({
@@ -23,17 +24,20 @@ const ProductDetails = () => {
       category:product?.category
     }
   });
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const UpdateProductHandler = (product) => {
     dispatch(asyncUpdateProduct(id,product))
   }
+
+
+
   
   const DeleteHandler=()=>{
     
-    useDispatch(asyncDeleteProduct(id))
-    Navigate("/product")
+    dispatch(asyncDeleteProduct(id))
+    navigate("/product")
   }
 
  return product ? (
