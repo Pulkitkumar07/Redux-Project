@@ -9,11 +9,12 @@ import UserProfile from "../pages/user/UserProfile"
 import PageNotFound from "../pages/PageNotFound"
 import { useSelector } from "react-redux"
 import AuthWrapper from "./AuthWrapper"
+import Cart from "../pages/Cart"
 const MainRoutes = () => {
   const { users } = useSelector((state) => state.userReducer)
   return (
     <Routes>
-      <Route path="/" element={users ? <Product /> : <Home />} />
+      <Route path="/" element={ <Product  />}/>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
@@ -37,6 +38,12 @@ const MainRoutes = () => {
           </AuthWrapper>
        } />
 
+ <Route path="/cart"
+       element={
+       <AuthWrapper>
+            <Cart/>
+          </AuthWrapper>
+       } />
 
 
       <Route path="*" element={<PageNotFound />} />

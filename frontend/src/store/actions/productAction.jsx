@@ -33,6 +33,7 @@ export const asyncUpdateProduct = (id, product) => async (dispatch, getState) =>
     console.log(err);
   }
 };
+
 export const asyncDeleteProduct = (id, product) => async (dispatch, getState) => {
   try {
     await axios.delete('/product/' + id,);

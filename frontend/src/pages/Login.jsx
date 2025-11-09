@@ -9,9 +9,8 @@ const Login = () => {
    const navigate=useNavigate();
   const dispatch = useDispatch();
   const loginHandler = (user) => {
-     user.isAdmin=true;
-      user.id = nanoid();
-     console.log(user);
+    user.isAdmin=true;
+    user.id = nanoid();
     dispatch(asyncloginUser(user))
     reset();
     navigate("/")
