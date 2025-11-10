@@ -11,6 +11,8 @@ const Login = () => {
   const loginHandler = (user) => {
     user.isAdmin=true;
     user.id = nanoid();
+    
+    
     dispatch(asyncloginUser(user))
     reset();
     navigate("/")

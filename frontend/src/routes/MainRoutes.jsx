@@ -1,18 +1,21 @@
 import { Routes, Route } from "react-router-dom"
-import Home from "../pages/Home"
-import Login from "../pages/Login"
-import Register from "../pages/Register"
-import Product from "../pages/Product"
-import CreateProduct from '../pages/admin/CreateProduct'
-import ProductDetails from "../pages/admin/ProductDetails"
-import UserProfile from "../pages/user/UserProfile"
-import PageNotFound from "../pages/PageNotFound"
 import { useSelector } from "react-redux"
-import AuthWrapper from "./AuthWrapper"
-import Cart from "../pages/Cart"
+import {lazy,Suspense}from "react"
+const Home = lazy(() => import("../pages/Home"));
+const Login = lazy(() => import("../pages/Login"));
+const Register = lazy(() => import("../pages/Register"));
+const Product = lazy(() => import("../pages/Product"));
+const CreateProduct = lazy(() => import("../pages/admin/CreateProduct"));
+const ProductDetails = lazy(() => import("../pages/admin/ProductDetails"));
+const UserProfile = lazy(() => import("../pages/user/UserProfile"));
+const Cart = lazy(() => import("../pages/Cart"));
+const AuthWrapper = lazy(() => import("./AuthWrapper"));
+const PageNotFound = lazy(() => import("../pages/PageNotFound"));
+
 const MainRoutes = () => {
-  const { users } = useSelector((state) => state.userReducer)
+
   return (
+    <Suspense fallback={<h2>Loading...</h2>}>
     <Routes>
       <Route path="/" element={ <Product  />}/>
       <Route path="/login" element={<Login />} />
@@ -50,6 +53,7 @@ const MainRoutes = () => {
 
 
     </Routes>
+    </Suspense>
   )
 }
 

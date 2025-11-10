@@ -14,8 +14,9 @@ const Cart = () => {
         copyuser.cart[index] = {
             product: item.product,
             quantity: item.quantity + 1,
+            
         };
-
+        toast.info("Quantity Increased");
         dispatch(asyncupdateuser(copyuser.id, copyuser));
     };
 

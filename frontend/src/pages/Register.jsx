@@ -11,7 +11,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const RegisterHandler = (user) => {
     user.id = nanoid();
-    user.isAdmin=false;
+    user.isAdmin=true;
     user.cart=[];
    dispatch(asyncRegisterUser(user))
    Navigate('/login')

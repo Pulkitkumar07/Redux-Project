@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import axios from "../../api/axiosconfig"
 import { loaduser } from "../reducers/userSlice";
 import {removeuser} from "../reducers/userSlice";
@@ -13,7 +14,8 @@ export const asyncdeleteuser=(id)=>async(dispatch,getState)=>{
 }
 export const asyncupdateuser = (id, user) => async (dispatch, getState) => {
   try {
-    const currentUser = getState().userReducer.user;
+    const currentUser = getState().userReducer.users;
+
 
     const updatedUser = { ...currentUser, ...user };
 
@@ -60,12 +62,12 @@ export const asyncloginUser = (user) => async (dispatch, getState) => {
 
   
   try {
-    const { data } = await axios.get(
+    const {data} = await axios.get(
       `http://localhost:3000/users?username=${user.username}&email=${user.email}`
 
     );
-  
-    
+     
+     
     if (data.length > 0) {
      
       

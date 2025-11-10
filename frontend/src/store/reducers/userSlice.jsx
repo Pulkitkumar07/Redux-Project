@@ -13,7 +13,7 @@ const userSlice=createSlice({
       
       
     },
-    removeuser:(state,action)=>{
+    removeuser:(state)=>{
         state.users=null;
     }
 },
