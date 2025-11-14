@@ -11,6 +11,7 @@ const UserProfile = lazy(() => import("../pages/user/UserProfile"));
 const Cart = lazy(() => import("../pages/Cart"));
 const AuthWrapper = lazy(() => import("./AuthWrapper"));
 const PageNotFound = lazy(() => import("../pages/PageNotFound"));
+const FavoriteProduct = lazy(() => import("../pages/FavoriteProduct"));
 
 const MainRoutes = () => {
 
@@ -48,6 +49,11 @@ const MainRoutes = () => {
           </AuthWrapper>
        } />
 
+       <Route path="/favorite-products" element={
+       <AuthWrapper>
+            <FavoriteProduct/>
+          </AuthWrapper>
+       } />
 
       <Route path="*" element={<PageNotFound />} />
 

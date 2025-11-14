@@ -16,6 +16,7 @@ export const asyncupdateuser = (id, user) => async (dispatch, getState) => {
   try {
     const currentUser = getState().userReducer.users;
 
+   if (!currentUser?.id) { return; }
 
     const updatedUser = { ...currentUser, ...user };
 

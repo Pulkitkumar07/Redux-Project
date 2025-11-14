@@ -1,52 +1,68 @@
-import { Form, Navigate, useFormAction, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
-import { nanoid } from "nanoid"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {asyncRegisterUser} from '../store/actions/userAction'
+import { asyncRegisterUser } from "../store/actions/userAction";
+import { nanoid } from "nanoid";
 
 const Register = () => {
   const { register, handleSubmit, reset } = useForm();
-  const Navigate=useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const RegisterHandler = (user) => {
     user.id = nanoid();
-    user.isAdmin=true;
-    user.cart=[];
-   dispatch(asyncRegisterUser(user))
-   Navigate('/login')
+    user.isAdmin = true;
+    user.cart = [];
+    dispatch(asyncRegisterUser(user));
+    reset();
+    navigate("/login");
+  };
 
-  }
   return (
-    <form onSubmit={handleSubmit(RegisterHandler)}
-      className=' w-1/2 flex flex-col justify-center mt-10 p-10 items-center' >
+    <div className="bg-[#222831] min-h-screen flex justify-center items-center">
+      <form
+        onSubmit={handleSubmit(RegisterHandler)}
+        className="w-full max-w-md bg-[#393E46] p-6 rounded-2xl shadow-md flex flex-col gap-4"
+      >
+        <h2 className="text-[#00ADB5] text-2xl font-bold text-center mb-4">
+          Register
+        </h2>
 
-      <input
-        {...register("username")}
-        className='outline-0 border-b-2 text-2xl'
-        type="text"
-        placeholder='username'
-      />
-      <input
-        {...register("email")}
-        className='outline-0 border-b-2 text-2xl'
-        type="text"
-        placeholder='email'
-      />
         <input
-       {...register("password")}
-        className='outline-0 border-b-2 text-2xl'
-        type="text"
-        placeholder='password'
-      />
+          {...register("username")}
+          type="text"
+          placeholder="Username"
+          className="outline-none border-b-2 border-[#00ADB5] bg-transparent text-[#EEEEEE] placeholder-[#EEEEEE] py-2"
+        />
+        <input
+          {...register("email")}
+          type="text"
+          placeholder="Email"
+          className="outline-none border-b-2 border-[#00ADB5] bg-transparent text-[#EEEEEE] placeholder-[#EEEEEE] py-2"
+        />
+        <input
+          {...register("password")}
+          type="password"
+          placeholder="Password"
+          className="outline-none border-b-2 border-[#00ADB5] bg-transparent text-[#EEEEEE] placeholder-[#EEEEEE] py-2"
+        />
 
-      <button className='mt-10 border-2 p-5 rounded-2xl' >Register user</button>
-      <p >Already have an account? <Link className='text-red-400' to="/login">Login</Link></p>
+        <button
+          type="submit"
+          className="mt-4 bg-[#00ADB5] text-[#222831] font-bold py-2 rounded-xl hover:bg-[#00bfcf] transition-colors"
+        >
+          Register
+        </button>
 
-
-    </form>
-
+        <p className="text-[#EEEEEE] text-center mt-2">
+          Already have an account?{" "}
+          <Link className="text-[#00ADB5] hover:text-[#00bfcf]" to="/login">
+            Login
+          </Link>
+        </p>
+      </form>
+    </div>
   );
-}
+};
 
-export default Register
+export default Register;
